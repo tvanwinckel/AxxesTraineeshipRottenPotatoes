@@ -1,5 +1,7 @@
 package com.axxes.rottenpotatoes.model;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,6 +21,7 @@ public class Movie {
     private Long movieId;
     private String title;
     private String director;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date releaseDate;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "movie")
@@ -45,12 +48,24 @@ public class Movie {
         return title;
     }
 
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
     public String getDirector() {
         return director;
     }
 
+    public void setDirector(final String director) {
+        this.director = director;
+    }
+
     public Date getReleaseDate() {
         return releaseDate;
+    }
+
+    public void setReleaseDate(final Date releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public List<Comment> getComments() {
@@ -58,6 +73,10 @@ public class Movie {
     }
 
     public int getScore() {
-        return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
+        try {
+            return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
+        } catch (final Exception e) {
+            return 0;
+        }
     }
 }

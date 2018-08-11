@@ -5,6 +5,9 @@ import com.axxes.rottenpotatoes.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -28,11 +31,24 @@ public class MovieController {
         return view;
     }
 
-    @GetMapping("/movie")
-    public ModelAndView getMovie(@RequestParam(name = "id") final Long id) {
+    @GetMapping("/movies/{id}")
+    public ModelAndView getMovie(@PathVariable(name = "id") final Long id) {
         final Movie movie = movieService.getMovie(id);
         final ModelAndView view = new ModelAndView("singleMovieView");
         view.addObject("movie", movie);
         return view;
+    }
+
+    @GetMapping("/movie")
+    public ModelAndView addMovieForm() {
+        final ModelAndView view = new ModelAndView("addMovieView");
+        view.addObject("movie", new Movie());
+        return view;
+    }
+
+    @PostMapping("/movie")
+    public ModelAndView addMovieSubmit(@ModelAttribute final Movie movie) {
+        movieService.addMovie(movie);
+        return getAllMovies();
     }
 }
