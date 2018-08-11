@@ -1,30 +1,44 @@
 package com.axxes.rottenpotatoes.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Movie {
 
-    private final String id;
-    private final String title;
-    private final String director;
-    private final Date releaseDate;
-    private final List<Comment> comments;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
+    private Long movieId;
+    private String title;
+    private String director;
+    private Date releaseDate;
 
-    public Movie(final String id,
-                 final String title,
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "movie")
+    private List<Comment> comments;
+
+
+    public Movie() {
+        // Required by jpa
+    }
+
+    public Movie(final String title,
                  final String director,
-                 final Date releaseDate,
-                 final List<Comment> comments) {
-        this.id = id;
+                 final Date releaseDate) {
         this.title = title;
         this.director = director;
         this.releaseDate = releaseDate;
-        this.comments = comments;
     }
 
-    public String getId() {
-        return id;
+    public Long getMovieId() {
+        return movieId;
     }
 
     public String getTitle() {
@@ -43,7 +57,7 @@ public class Movie {
         return comments;
     }
 
-    public int score() {
-        return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
-    }
+//    public int score() {
+//        return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
+//    }
 }
