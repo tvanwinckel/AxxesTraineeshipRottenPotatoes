@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -23,8 +24,14 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie getMovie(final String id) {
-        return null;
+    public Movie getMovie(final Long id) {
+        final Optional<Movie> optionalMovie = movieRepository.findById(id);
+
+        if (optionalMovie.isPresent()) {
+            return optionalMovie.get();
+        } else {
+            throw new MovieNotFoundException();
+        }
     }
 
     @Override

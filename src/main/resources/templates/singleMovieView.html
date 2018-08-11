@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<p th:text="'Movie title: ' + ${movie.getTitle()}"></p>
+<p th:text="'Director: ' + ${movie.getDirector()}"></p>
+<p th:text="'Release date: ' + ${movie.getReleaseDate()}"></p>
+<p th:text="'Average score: ' + ${movie.getScore()}"></p>
+<tr th:each="comment : ${movie.getComments()}">
+    <td th:text="'Comment id: ' + ${comment.getCommentId()}"></td><br/>
+    <td th:text="'Text: ' + ${comment.getText()}"></td><br/>
+    <td th:text="'Author: ' + ${comment.getAuthor()}"></td><br/>
+    <td th:text="'Score: ' + ${comment.getScore()}"></td><br/>
+</tr>
+</body>
+</html>

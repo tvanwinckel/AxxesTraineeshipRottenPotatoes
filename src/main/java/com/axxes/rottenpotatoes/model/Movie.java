@@ -57,7 +57,7 @@ public class Movie {
         return comments;
     }
 
-//    public int score() {
-//        return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
-//    }
+    public int getScore() {
+        return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();
+    }
 }

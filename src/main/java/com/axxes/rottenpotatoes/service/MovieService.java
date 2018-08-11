@@ -8,7 +8,7 @@ public interface MovieService {
 
     List<Movie> getAllMovies();
 
-    Movie getMovie(String id);
+    Movie getMovie(Long id);
 
     Movie addMovie(Movie movie);
 
