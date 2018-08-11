@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,6 +50,20 @@ public class MovieController {
     @PostMapping("/movie")
     public ModelAndView addMovieSubmit(@ModelAttribute final Movie movie) {
         movieService.addMovie(movie);
+        return getAllMovies();
+    }
+
+    @PutMapping("/movie")
+    public ModelAndView updateMovieForm(@RequestParam(name="id", required=true) final Long id) {
+        final Movie movie = movieService.getMovie(id);
+        final ModelAndView view = new ModelAndView("updateMovieView");
+        view.addObject("movie", movie);
+        return view;
+    }
+
+    @PostMapping("/movie-update")
+    public ModelAndView updateMovieSubmit(@ModelAttribute final Movie movie) {
+        movieService.updateMovie(movie);
         return getAllMovies();
     }
 }
