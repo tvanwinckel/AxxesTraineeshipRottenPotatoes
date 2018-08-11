@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<h3>Enter person details:</h3>
+<h3>Enter movie details:</h3>
 <form action="#" th:action="@{/movie-update}" th:object="${movie}" method="post">
     <p>Title:           <input type="text" th:field="*{title}" /></p>
     <p>Director:        <input type="text" th:field="*{director}" /></p>

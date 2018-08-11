@@ -4,6 +4,7 @@ import com.axxes.rottenpotatoes.model.Movie;
 import com.axxes.rottenpotatoes.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +65,12 @@ public class MovieController {
     @PostMapping("/movie-update")
     public ModelAndView updateMovieSubmit(@ModelAttribute final Movie movie) {
         movieService.updateMovie(movie);
+        return getAllMovies();
+    }
+
+    @DeleteMapping("/movie")
+    public ModelAndView deleteMovie(@RequestParam(name="id", required=true) final Long id) {
+        movieService.deleteMovie(id);
         return getAllMovies();
     }
 }
