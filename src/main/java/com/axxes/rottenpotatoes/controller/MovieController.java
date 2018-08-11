@@ -21,15 +21,18 @@ public class MovieController {
     }
 
     @GetMapping("/movies")
-    public void getAllMovies() {
+    public ModelAndView getAllMovies() {
         final List<Movie> movies = movieService.getAllMovies();
+        final ModelAndView view = new ModelAndView("allMoviesView");
+        view.addObject("movies", movies);
+        return view;
     }
 
     @GetMapping("/movie")
     public ModelAndView getMovie(@RequestParam(name = "id") final Long id) {
         final Movie movie = movieService.getMovie(id);
-        final ModelAndView modelView = new ModelAndView("singleMovieView");
-        modelView.addObject("movie", movie);
-        return modelView;
+        final ModelAndView view = new ModelAndView("singleMovieView");
+        view.addObject("movie", movie);
+        return view;
     }
 }

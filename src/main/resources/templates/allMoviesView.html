@@ -1,0 +1,15 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<tr th:each="movie : ${movies}">
+    <td th:text="'Id: ' + ${movie.getMovieId()}"></td><br/>
+    <td th:text="'Movie title: ' + ${movie.getTitle()}"></td><br/>
+    <td th:text="'Director: ' + ${movie.getDirector()}"></td><br/>
+    <td th:text="'Release date: ' + ${movie.getReleaseDate()}"></td><br/>
+    <td th:text="'Avg. score: ' + ${movie.getScore()}"></td><br/>
+</tr>
+</body>
+</html>
