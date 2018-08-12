@@ -87,4 +87,8 @@ public class Movie {
             return 0;
         }
     }
+
+    public void addComment(final Comment comment) {
+        comments.add(comment);
+    }
 }

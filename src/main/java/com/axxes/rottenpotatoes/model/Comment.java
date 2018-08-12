@@ -28,10 +28,12 @@ public class Comment {
 
     public Comment(final String text,
                    final String author,
-                   final int score) {
+                   final int score,
+                   final Movie movie) {
         this.text = text;
         this.author = author;
         this.score = score;
+        this.movie = movie;
     }
 
     public Long getCommentId() {

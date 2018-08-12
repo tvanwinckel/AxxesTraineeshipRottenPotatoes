@@ -1,17 +1,16 @@
 package com.axxes.rottenpotatoes.controller;
 
 import com.axxes.rottenpotatoes.model.Comment;
+import com.axxes.rottenpotatoes.model.CommentDto;
 import com.axxes.rottenpotatoes.model.Movie;
 import com.axxes.rottenpotatoes.service.CommentService;
 import com.axxes.rottenpotatoes.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -49,38 +48,24 @@ public class CommentController {
     @GetMapping("/movie/{movieId}/comment")
     public ModelAndView addCommentForm(@PathVariable(name = "movieId") final Long movieId) {
         final ModelAndView view = new ModelAndView("addCommentView");
-        final Movie movie = movieService.getMovie(movieId);
-        final Comment comment = new Comment();
-        comment.setMovie(movie);
-        view.addObject("comment", comment);
+//        FIXME : Transaction problem because we give an object instead of objectId
+//        final Movie movie = movieService.getMovie(movieId);
+//        final Comment comment = new Comment();
+//        comment.setMovie(movie);
+        view.addObject("movieId", movieId);
+        view.addObject("commentDto", new CommentDto());
         return view;
     }
 
     @PostMapping("/comment")
-    public ModelAndView addCommentSubmit(@ModelAttribute final Comment comment) {
+    public ModelAndView addCommentSubmit(@RequestParam("movieId") final Long movieId,
+                                         @ModelAttribute final CommentDto commentDto) {
+        final Movie movie = movieService.getMovie(movieId);
+        final Comment comment = new Comment(commentDto.getText(), commentDto.getAuthor(), commentDto.getScore(), movie);
         commentService.addComment(comment);
+        movie.addComment(comment);
+
         return getAllComments(comment.getMovie().getMovieId());
     }
 
-    @PutMapping("/comment")
-    public ModelAndView updateComment(@RequestParam(name = "id", required = true) final Long id) {
-        final Comment comment = commentService.getComment(id);
-        final ModelAndView view = new ModelAndView("updateCommentView");
-        view.addObject("comment", comment);
-        return view;
-    }
-
-    @PostMapping("/movie/{movieId}/comment-update")
-    public ModelAndView updateCommentSubmit(@PathVariable(name = "movieId") final Long movieId,
-                                            @ModelAttribute final Comment comment) {
-        commentService.updateComment(comment);
-        return getAllComments(movieId);
-    }
-
-    @DeleteMapping("/movie/{movieId}/comment")
-    public ModelAndView deleteComment(@PathVariable(name = "movieId") final Long movieId,
-                                      @RequestParam(name = "id", required = true) final Long commentId) {
-        commentService.delete(commentId);
-        return getAllComments(movieId);
-    }
 }

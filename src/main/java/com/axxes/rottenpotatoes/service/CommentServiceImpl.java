@@ -42,15 +42,4 @@ public class CommentServiceImpl implements CommentService {
     public Comment addComment(final Comment comment) {
         return commentRepository.save(comment);
     }
-
-    @Override
-    public Comment updateComment(final Comment comment) {
-        return commentRepository.save(comment);
-    }
-
-    @Override
-    public void delete(final Long commentId) {
-        final Comment comment = getComment(commentId);
-        commentRepository.delete(comment);
-    }
 }
