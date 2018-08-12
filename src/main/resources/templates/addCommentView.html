@@ -1,4 +1,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
 <body>
 <h3>Enter a comment:</h3>
 <form action="#" th:action="@{/comment(movieId=${movieId})}" th:object="${commentDto}" method="post">
