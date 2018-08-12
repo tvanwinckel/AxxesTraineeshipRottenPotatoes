@@ -4,5 +4,5 @@ INSERT INTO movie(title, director, release_Date) VALUES
 
 INSERT INTO comment(text, author, score, movie_id) VALUES
   ('A comment for a movie', 'John Doe', 4, 1),
-  ('A comment for a movie2', 'Jane Doe', 2, 1),
+  ('A comment for a movie', 'Jane Doe', 2, 1),
   ('A comment for a movie2', 'John Doe', 0, 2);

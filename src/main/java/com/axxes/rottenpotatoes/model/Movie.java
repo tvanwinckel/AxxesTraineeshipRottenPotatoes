@@ -76,6 +76,10 @@ public class Movie {
         return comments;
     }
 
+    public void setComments(final List<Comment> comments) {
+        this.comments = comments;
+    }
+
     public int getScore() {
         try {
             return comments.stream().mapToInt(Comment::getScore).sum() / comments.size();

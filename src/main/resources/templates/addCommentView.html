@@ -1,0 +1,12 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<h3>Enter a comment:</h3>
+<form action="#" th:action="@{/comment}" th:object="${comment}" method="post">
+    <input type="hidden" th:field="*{movie}"/>
+    <p>Text:            <input type="text" th:field="*{text}" /></p>
+    <p>Author:          <input type="text" th:field="*{author}" /></p>
+    <p>Score:           <input type="text" th:field="*{score}" /></p>
+    <p><input type="submit" value="Submit" /></p>
+</form>
+</body>
+</html>

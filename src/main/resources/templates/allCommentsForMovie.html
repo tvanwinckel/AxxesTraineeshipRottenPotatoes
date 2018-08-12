@@ -1,0 +1,14 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<tr th:each="comment : ${comments}">
+    <td th:text="'MovieId: ' + ${comment.getMovieId()}"></td><br/>
+    <td th:text="'Comment: ' + ${comment.getText()}"></td><br/>
+    <td th:text="'Author: ' + ${comment.getAuthor()}"></td><br/>
+    <td th:text="'Score: ' + ${comment.getScore()}"></td><br/>
+</tr>
+</body>
+</html>

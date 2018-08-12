@@ -42,11 +42,35 @@ public class Comment {
         return text;
     }
 
+    public void setText(final String text) {
+        this.text = text;
+    }
+
     public String getAuthor() {
         return author;
     }
 
+    public void setAuthor(final String author) {
+        this.author = author;
+    }
+
     public int getScore() {
         return score;
+    }
+
+    public void setScore(final int score) {
+        this.score = score;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(final Movie movie) {
+        this.movie = movie;
+    }
+
+    public Long getMovieId() {
+        return movie.getMovieId();
     }
 }
