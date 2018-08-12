@@ -3,6 +3,8 @@ package com.axxes.rottenpotatoes.controller;
 import com.axxes.rottenpotatoes.model.Movie;
 import com.axxes.rottenpotatoes.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -49,13 +53,15 @@ public class MovieController {
     }
 
     @PostMapping("/movie")
+    @ResponseStatus(HttpStatus.CREATED)
     public ModelAndView addMovieSubmit(@ModelAttribute final Movie movie) {
         movieService.addMovie(movie);
         return getAllMovies();
     }
 
     @PutMapping("/movie")
-    public ModelAndView updateMovieForm(@RequestParam(name="id", required=true) final Long id) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public ModelAndView updateMovieForm(@RequestParam(name = "id", required = true) final Long id) {
         final Movie movie = movieService.getMovie(id);
         final ModelAndView view = new ModelAndView("updateMovieView");
         view.addObject("movie", movie);
@@ -69,6 +75,7 @@ public class MovieController {
     }
 
     @DeleteMapping("/movie")
+    @ResponseStatus(HttpStatus.ACCEPTED)
     public ModelAndView deleteMovie(@RequestParam(name="id", required=true) final Long id) {
         movieService.deleteMovie(id);
         return getAllMovies();
